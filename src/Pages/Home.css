@@ -1,0 +1,28 @@
+.carousel{    
+        height: 400px;
+        width: 900px;
+        margin-top: 30px;
+        margin-left:180px ;    
+}
+.sidebar{
+    margin-left: 20px;
+}
+.home{
+    display: flex;
+    
+    justify-self: unset;
+}
+
+.vertical-line {
+    width: 1px; 
+    height: 650px; 
+    background-color: #a49f9f; 
+    position: absolute; 
+    left: 20%; 
+    top: 75px;
+  }
+  .cardexample{
+    margin-top: 300px;
+
+  }
+  

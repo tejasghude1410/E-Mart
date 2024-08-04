@@ -16,14 +16,14 @@ const Navbar = () => {
         <p>ElectroMart</p>
       </div>
       <ul className='nav-menu'>
-        <li onClick={()=>{setMenu("Home")}}><Link style={{textDecoration:'none',colorDecoration:'none'}} to='/'>Home</Link>{Menu==="Home"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("Home")}}><Link style={{textDecoration:'none', color: 'black'}} to='/'>Home</Link>{Menu==="Home"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("Contact")}}>Contact{Menu==="Contact"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("About")}}>About{Menu==="About"?<hr/>:<></>}</li>
-        <li onClick={()=>{setMenu("Sign in")}}><Link style={{textDecoration:'none'}} to='sign in'>Sign in</Link>{Menu==="Sign in"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("Sign in")}}><Link style={{textDecoration:'none',color: 'black' }} to='Log in'>Log in</Link>{Menu==="Log in"?<hr/>:<></>}</li>
       </ul>
       <div className='nav-search'>        
         <input type='text' name="search"  placeholder='Search'/>
-        <button>Search</button>
+       
         <Link to='/cart' style={{textDecoration:'none'}}><img src={shopping} alt=''></img></Link>
         <div className='nav-cart-count'>0</div>
       
