@@ -33,8 +33,6 @@
     display: flex;
     gap: 20px;
     align-items: center;
-
-
 }
 .nav-menu li{
     display: flex;
@@ -52,14 +50,12 @@
     border-radius: 10px;
     background: red;
 }
-.nav-search input{
-    
-        width: 200px;
-        height: 25px;
-        padding: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        
+.nav-search input{    
+    width: 200px;
+    height: 25px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
       
 }
 .nav-search button{

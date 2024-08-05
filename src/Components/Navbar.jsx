@@ -4,7 +4,7 @@ import shopping from "../Components/Assets/shopping-cart-1985.png";
 import logo from "../Components/Assets/Main logo.png"
 import cart from '../Pages/cart';
 import Home from '../Pages/Home';
-import Signin from '../Pages/Signin';
+import Signin from '../Pages/Login';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 const Navbar = () => {
@@ -19,7 +19,9 @@ const Navbar = () => {
         <li onClick={()=>{setMenu("Home")}}><Link style={{textDecoration:'none', color: 'black'}} to='/'>Home</Link>{Menu==="Home"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("Contact")}}>Contact{Menu==="Contact"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("About")}}>About{Menu==="About"?<hr/>:<></>}</li>
-        <li onClick={()=>{setMenu("Sign in")}}><Link style={{textDecoration:'none',color: 'black' }} to='Log in'>Log in</Link>{Menu==="Log in"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("Log in")}}><Link style={{textDecoration:'none',color: 'black' }} to='/Login'>Log in</Link>{Menu==="Log in"?<hr/>:<></>}</li>
+      
+
       </ul>
       <div className='nav-search'>        
         <input type='text' name="search"  placeholder='Search'/>

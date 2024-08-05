@@ -4,6 +4,7 @@ import CarouselComponent from '../Components/Carousel/CarouselComponent.jsx';
 import Sidebar from '../Components/Sidebar/toggleSidebar.jsx';
 import './Home.css';
 import ProductCard from '../Components/Product/ProductCard.jsx';
+import ItmCard from '../Components/ItmCard/ItmCard.jsx'
 
 
 function Home() {
@@ -17,11 +18,12 @@ function Home() {
         <div className='carousel'>
           <CarouselComponent />
         </div>
+        
+
 
       </div>
       
-      
-      <div><ProductCard/></div>
+      {/*<div className='productCard'><ProductCard/></div>*/}
     </div>
   )
 }
