@@ -1,37 +1,42 @@
-import React, { useState } from 'react';
-import emailjs from 'emailjs-com';
+import React, { useState, useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import './ContactUs.css';
 
 const ContactUs = () => {
     const [formData, setFormData] = useState({
-        name: '',
-        email: '',
+        user_name: '',
+        user_email: '',
         message: '',
     });
 
+    const form = useRef();
+
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setFormData((prevState) => ({
+            ...prevState,
+            [name]: value,
+        }));
     };
 
-    const handleSubmit = (e) => {
+    const sendEmail = (e) => {
         e.preventDefault();
 
-        emailjs.send(
-            'service_qehprci', // Replace with your EmailJS service ID
-            'template_8bg93zd', // Replace with your EmailJS template ID
-            formData,
-            'YOUR_USER_ID' // Replace with your EmailJS user ID
+        emailjs.sendForm(
+            'service_i42a6kn', // Replace with your EmailJS service ID
+            'template_tf47ckg', // Replace with your EmailJS template ID
+            form.current,
+            'zHaarZbAw5wLb837x' // Replace with your EmailJS user ID
         )
         .then((response) => {
             console.log('SUCCESS!', response.status, response.text);
             alert('Your message has been sent successfully!');
+            setFormData({ user_name: '', user_email: '', message: '' });
         })
         .catch((err) => {
             console.error('FAILED...', err);
             alert('Failed to send your message. Please try again later.');
         });
-
-        setFormData({ name: '', email: '', message: '' });
     };
 
     return (
@@ -43,31 +48,32 @@ const ContactUs = () => {
             <div className="contact-section">
                 <div className="contact-info">
                     <h3>Reach us at</h3>
-                    <p>Address: 5th Floor, Vidyanidhi Education Complex, Vidyanidhi Road, Juhu Scheme, Andheri (W), Mumbai 400 049 India
-</p>
-                    <p>Mobile: 9029435311 / 9324095272
-                    9987062416</p>
+                    <p>Address: 5th Floor, Vidyanidhi Education Complex, Vidyanidhi Road, Juhu Scheme, Andheri (W), Mumbai 400 049 India</p>
+                    <p>Mobile: 9029435311 / 9324095272 / 9987062416</p>
                     <p>Email: electromart@gmail.com</p>
                 </div>
                 <div className="contact-form">
                     <h3>Get In Touch With Us!</h3>
-                    <form onSubmit={handleSubmit}>
+                    <form ref={form} onSubmit={sendEmail}>
+                        <label>Name</label>
                         <input
                             type="text"
-                            name="name"
+                            name="user_name"
                             placeholder="Name"
-                            value={formData.name}
+                            value={formData.user_name}
                             onChange={handleChange}
                             required
                         />
+                        <label>Email</label>
                         <input
                             type="email"
-                            name="email"
+                            name="user_email"
                             placeholder="Email"
-                            value={formData.email}
+                            value={formData.user_email}
                             onChange={handleChange}
                             required
                         />
+                        <label>Message</label>
                         <textarea
                             name="message"
                             placeholder="Message"
@@ -95,5 +101,3 @@ const ContactUs = () => {
 };
 
 export default ContactUs;
-
-

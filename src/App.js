@@ -27,12 +27,7 @@ function App() {
         <Route path='/ContactUs' element={<ContactUs/>}/>
 
       
-      </Routes>
-
-
-      
-       
-      
+      </Routes>  
       <div style={{ alignSelf: 'flex-end' }}><Footer/></div>
       </BrowserRouter>
     </div>
