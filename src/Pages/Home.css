@@ -1,0 +1,29 @@
+        height: 400px;
+        width: 900px;
+        margin-top: px;
+        margin-left:150px ;    
+}
+.sidebar{
+    margin-left: 20px;
+}
+.home{
+    display: flex;
+    
+    justify-content: start-end;
+}
+
+.vertical-line {
+    width: 1px; 
+    height: 450px; 
+    background-color: #a49f9f; 
+    position: absolute; 
+    left: 20%; 
+    top: 75px;
+  }
+  .cardexample{
+    margin-top: 300px;
+  }
+  .productCard{
+    margin-top: 280px;
+  }
+  
