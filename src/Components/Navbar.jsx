@@ -4,7 +4,7 @@ import shopping from "../Components/Assets/shopping-cart-1985.png";
 import logo from "../Components/Assets/Main logo.png"
 import cart from '../Pages/cart';
 import Home from '../Pages/Home';
-import Signin from '../Pages/Login';
+import Signin from '../Pages/Signin';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 
 const Navbar = () => {

@@ -1,16 +1,16 @@
 .carousel{    
-        height: 400px;
-        width: 900px;
-        margin-top: px;
-        margin-left:150px ;    
+        height: 500px;
+        width: 1400px;
+        margin-top: 3px;
+            
 }
 .sidebar{
     margin-left: 20px;
 }
 .home{
     display: flex;
-    
-    justify-content: start-end;
+    width: 1500px;
+    justify-content: center;
 }
 
 .vertical-line {
@@ -27,4 +27,5 @@
   .productCard{
     margin-top: 280px;
   }
+  
   

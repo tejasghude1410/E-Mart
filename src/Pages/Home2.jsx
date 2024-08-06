@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 
 import { useState } from 'react';
 import ItmCard from '../Components/ItmCard/ItmCard.jsx';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import CarouselComponent from '../Components/Carousel/CarouselComponent.jsx';
 import Sidebar from '../Components/Sidebar/toggleSidebar.jsx';
 
@@ -27,19 +27,18 @@ function Home() {
     
   }
   return (
-
-    <div>
-    <div className='home'>
     
+    <div>
+    <div className='home'>    
     <div className='carousel'>
       <CarouselComponent />
     </div>
 
   </div>
   
-   <h3 style={{margin:'30px',marginTop:'-100px', align : 'center' , color:'red' }}>Browse By Category</h3>
+   <h3 style={{margin:'30px',marginLeft: '50px', align : 'center' , color:'red' }}>Browse By Category</h3>
     <div >
-      <div
+      <div 
         style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
@@ -49,16 +48,17 @@ function Home() {
         }}
       >
         {maincategories?.map((i) => (
-          <div
+          <div className='category'
             key={i.catmasterID}
             onClick={() => handleClick(i.catmasterID, i.childflag)}
             style={{ cursor: 'pointer' }} 
           >
-            <ItmCard title={i.categoryName} img={i.catImgPath} />
+            <ItmCard title={i.categoryName} />
           </div>
         ))}
       </div>
     </div>
+     <Outlet/>
     </div>
   );
 };
