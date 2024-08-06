@@ -8,6 +8,8 @@ import Product from './Pages/Product'
 import Login from './Pages/Login';
 import Sidebar from './Components/Sidebar/toggleSidebar';
 import Footer from './Components/Footer';
+import About from './Pages/About';
+import ContactUs from './Pages/ContactUs';
 
 function App() {
   return (
@@ -21,7 +23,16 @@ function App() {
           <Route path=':productId' element={<Product/>}/>
         </Route>
         <Route path='/cart' element={<Cart/>}/>
+        <Route path='/About' element={<About/>}/>
+        <Route path='/ContactUs' element={<ContactUs/>}/>
+
+      
       </Routes>
+
+
+      
+       
+      
       <div style={{ alignSelf: 'flex-end' }}><Footer/></div>
       </BrowserRouter>
     </div>
