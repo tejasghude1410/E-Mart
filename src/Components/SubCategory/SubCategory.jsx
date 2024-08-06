@@ -29,14 +29,15 @@ const SubCategory = () => {
       .then(response => response.json())
       .then(data => {
         setSubcategories(data);
+        setLoading(false);
         console.log(data);
       })
       .catch(error => console.error('Error fetching data:', error));
   }, [id]);
+ 
 
-  if (loading) {
-    return <div style={{display:'flex', justifyContent:'center',padding:'50px'}}><Spinner/></div>;
-  }
+  if (loading) return <div style={{display:'flex', justifyContent:'center',padding:'50px'}}><Spinner/></div>;
+  
 
   if (error) {
       return <div>Error: {error}</div>;

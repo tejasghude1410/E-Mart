@@ -4,14 +4,15 @@ import { useState } from 'react';
 import ItmCard from '../Components/ItmCard/ItmCard.jsx';
 import { Outlet, useNavigate } from 'react-router-dom';
 import CarouselComponent from '../Components/Carousel/CarouselComponent.jsx';
-import Sidebar from '../Components/Sidebar/toggleSidebar.jsx';
+import ProductCard from '../Components/Product/ProductCard.jsx';
+
 
 
 function Home() {
   let navigate = useNavigate();
   const [maincategories, setMaincategories] = useState([]);
   useEffect(() => {
-    fetch('http://localhost:8080/api/Category/getCatNameByParentId/1')
+    fetch('http://localhost:8080/api/Category/getCatNameByParentId/0')
       .then(response => response.json())
       .then(data => {
         setMaincategories(data)
@@ -44,7 +45,7 @@ function Home() {
           gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))',
           gap: '20px',
           margin: '0 auto',
-          maxWidth: '1200px', 
+          maxWidth: '1300px', 
         }}
       >
         {maincategories?.map((i) => (
@@ -57,6 +58,7 @@ function Home() {
           </div>
         ))}
       </div>
+      <ProductCard/>
     </div>
      <Outlet/>
     </div>

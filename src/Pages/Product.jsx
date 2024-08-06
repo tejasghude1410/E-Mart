@@ -20,6 +20,7 @@ const Product = () => {
           .then(data => {
             setProduct(data);
             console.log(data);
+            setLoading=false;
           })
           .catch(error => console.error('Error fetching data:', error));
       }, [id]);
