@@ -9,6 +9,10 @@ import Login from './Pages/Signin';
 import Sidebar from './Components/Sidebar/toggleSidebar';
 import Footer from './Components/Footer';
 import SubCategory from './Components/SubCategory/SubCategory';
+import  Contact  from './Pages/Contact';
+import About from './Pages/About';
+import SignIn from './Pages/SignIn/SignIn';
+import SignUp from './Pages/SignUp/SignUp';
 
 function App() {
   return (
@@ -22,7 +26,10 @@ function App() {
           <Route path='/p/:id' element={<Product/>}/>          
         </Route>
         <Route path='/cart' element={<Cart/>}/>
-        <Route path='/Login' element={<Login/>}/>
+        <Route path='/signin' element={<SignIn/>}/>
+        <Route path='/signin/SignUP' element={<SignUp/>}/>
+        <Route path='/About' element={<About/>}/>
+        <Route path='/Contact' element={<Contact/>}/>
       </Routes>
       <div style={{ alignSelf: 'flex-end' }}><Footer/></div>
       </BrowserRouter>
