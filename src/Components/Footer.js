@@ -29,7 +29,11 @@ function Footer() {
             </Col>
             <Col xs={8} md={4} className="mb-4">
               <h5>Address</h5>
-              <p>Vita</p>
+              <p>Address: 5th Floor, Vidyanidhi Education Complex, Vidyanidhi Road, Juhu Scheme, Andheri (W), Mumbai 400 049 India
+
+            Mobile: 9029435311 / 9324095272 9987062416
+
+            Email: electromart@gmail.com </p>
               
             </Col>
           </Row>

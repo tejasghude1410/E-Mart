@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/Product/ProductCard.jsx';
 import { Spinner } from 'react-bootstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Product = () => {
 
@@ -19,12 +20,13 @@ const Product = () => {
           .then(data => {
             setProduct(data);
             console.log(data);
+            setLoading=false;
           })
           .catch(error => console.error('Error fetching data:', error));
       }, [id]);
 
-      if (loading) {
-        return <div><Spinner/></div>;
+   if (loading) {
+        return <div style={{display:'flex', justifyContent:'center',padding:'50px'}}><Spinner/></div>;
     }
 
     if (error) {

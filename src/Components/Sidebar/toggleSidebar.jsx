@@ -6,13 +6,8 @@ import "./sidebar.css"
 import { Link } from 'react-router-dom'; 
 
 
-const Sidebar = () => {
-  const [collapsed, setCollapsed] = useState(false);
-
-  const toggleSidebar = () => {
-    setCollapsed(!collapsed);
-  };
-
+const Sidebar = (title) => {
+  
   return (
     <div className="sidebar">
             
