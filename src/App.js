@@ -4,14 +4,14 @@ import Navbar from './Components/Navbar';
 import Home2 from './Pages/Home2';
 import { BrowserRouter,Routes,Route } from 'react-router-dom';
 import Cart from './Pages/cart';
-import Product from './Pages/Product'
+import Product from './Components/Product/ProductCard'
 import Login from './Pages/Signin';
 import Sidebar from './Components/Sidebar/toggleSidebar';
 import Footer from './Components/Footer';
 import SubCategory from './Components/SubCategory/SubCategory';
 import  Contact  from './Pages/Contact';
 import About from './Pages/About';
-import SignIn from './Pages/SignIn/SignIn';
+import SignIn from './Pages/SignIn/SignIn1';
 import SignUp from './Pages/SignUp/SignUp';
 
 function App() {

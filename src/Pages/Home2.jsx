@@ -58,7 +58,7 @@ function Home() {
           </div>
         ))}
       </div>
-      <ProductCard/>
+      
     </div>
      <Outlet/>
     </div>

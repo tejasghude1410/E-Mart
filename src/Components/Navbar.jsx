@@ -4,11 +4,16 @@ import shopping from "../Components/Assets/shopping-cart-1985.png";
 import logo from "../Components/Assets/Main logo.png"
 import cart from '../Pages/cart';
 import Home from '../Pages/Home';
-import Signin from '../Pages/Signin';
-import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
+
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+  const navigate = useNavigate();
   const [Menu,setMenu]= useState("Home");
+   const handleLogout = () => {
+    localStorage.clear();
+}
+
   return (
     <div className='navbar'>
       <div className='nav-logo'>
@@ -19,7 +24,17 @@ const Navbar = () => {
         <li onClick={()=>{setMenu("Home")}}><Link style={{textDecoration:'none', color: 'black'}} to='/'>Home</Link>{Menu==="Home"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("Contact")}}><Link style={{textDecoration:'none', color: 'black'}} to='/Contact'>Contact</Link>{Menu==="Contact"?<hr/>:<></>}</li>
         <li onClick={()=>{setMenu("About")}}><Link style={{textDecoration:'none', color: 'black'}} to='/About'>About</Link>{Menu==="About"?<hr/>:<></>}</li>
-        <li onClick={()=>{setMenu("Log in")}}><Link style={{textDecoration:'none',color: 'black' }} to='/signin'>Sign In</Link>{Menu==="Sign In"?<hr/>:<></>}</li>
+        <li onClick={()=>{setMenu("Log in")}}>
+         
+          {localStorage.getItem('islogin') ?
+              <div onClick={() => { 
+                handleLogout();
+                navigate('/') }}>               
+                Sign Out
+              </div>
+              :
+              <Link style={{textDecoration:'none',color: 'black' }} to='/signin'>Sign In</Link>          
+              }</li>
       
 
       </ul>
