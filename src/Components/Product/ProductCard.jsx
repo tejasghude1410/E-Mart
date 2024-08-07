@@ -34,7 +34,7 @@ const ProductCard = ({
       return;
     }
 
-    navigate('/login');
+    navigate('/signin');
   };
 
   useEffect(() => {

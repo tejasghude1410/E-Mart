@@ -57,8 +57,7 @@ function Home() {
             <ItmCard title={i.categoryName} />
           </div>
         ))}
-      </div>
-      <ProductCard/>
+      </div>      
     </div>
      <Outlet/>
     </div>
