@@ -18,11 +18,17 @@ const ProductCard = ({
   const [cart, setCart] = useState({
     prodID: "",
     custID: "",
-    qty: ""
+    qty: 1
   });
 
   const [showLongDesc, setShowLongDesc] = useState(false);
 
+  
+  const handleClick = (id) => {
+    navigate(`/productd/${id}`);
+  }
+
+  
   const handleAddToCart = (id) => {
     if (localStorage.getItem("islogin") === "true") {
       setCart({
@@ -30,14 +36,13 @@ const ProductCard = ({
         custID: localStorage.getItem("custId"),
         qty: 1
       });
-      
-      return;
+    } else {
+      navigate('/signin');
     }
-
-    navigate('/signin');
   };
 
   useEffect(() => {
+    
     if (cart.prodID && cart.custID) {
       fetch("http://localhost:8080/api/Cart", {
         method: "POST",
@@ -48,21 +53,27 @@ const ProductCard = ({
           if (!response.ok) {
             throw new Error("Cart data couldn't be sent.");
           }
-          alert("Cart data sent successfully.");
+          alert("Added to Cart successfully.");
         })
         .catch((error) => {
-          alert("Item Already added in the cart");
+          alert("Failed to add item to the cart.");
         });
     }
   }, [cart]);
 
+  
   const toggleLongDesc = () => {
     setShowLongDesc(!showLongDesc);
   };
 
   return (
     <div className="product-card">
-      <img src={imgpath} alt={prodName} className="product-image" />
+      <img 
+        src={imgpath} 
+        alt={prodName} 
+        className="product-image" 
+        onClick={() => handleClick(id)}
+      />
       <h3 className="product-name">{prodName}</h3>
       {showLongDesc ? (
         <p className="product-long-desc">{prodLongDesc}</p>
@@ -72,20 +83,26 @@ const ProductCard = ({
       <div className="product-prices">
         <span className="product-mrp-price">MRP - ₹{mrpPrice}</span>
         <span className="product-offer-price">₹{offerPrice}</span>
-        {prodPoints != 0 ? (<span className='product-offer-price'>Points - {prodPoints}</span>) : ""}
-        {prodPoints != 0 ? (<span className='product-offer-price'>Discount - {prodDisc==0 ? "100%" : prodDisc+"%"}</span>) : ""}
-        
+        {prodPoints > 0 && (
+          <>
+            <span className='product-points'>Points - {prodPoints}</span>
+            <span className='product-discount'>Discount - {prodDisc === 0 ? "100%" : `${prodDisc}%`}</span>
+          </>
+        )}
       </div>
       {prodLongDesc && (
         <p className="show-more" onClick={toggleLongDesc}>
           {showLongDesc ? 'Show Less' : 'Show More'}
         </p>
       )}
-
       <div className="product-buttons">
-        <button className="add-to-cart-button" onClick={() => handleAddToCart(id)}>
+        <button 
+          className="add-to-cart-button" 
+          onClick={() => handleAddToCart(id)}
+        >
           Add to Cart
         </button>
+        
       </div>
     </div>
   );
@@ -95,6 +112,8 @@ ProductCard.propTypes = {
   id: PropTypes.string.isRequired,
   imgpath: PropTypes.string.isRequired,
   prodName: PropTypes.string.isRequired,
+  prodDisc: PropTypes.number,
+  prodPoints: PropTypes.number,
   prodLongDesc: PropTypes.string.isRequired,
   prodShortDesc: PropTypes.string.isRequired,
   offerPrice: PropTypes.number.isRequired,
@@ -102,6 +121,3 @@ ProductCard.propTypes = {
 };
 
 export default ProductCard;
-
-
-

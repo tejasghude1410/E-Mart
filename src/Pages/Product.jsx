@@ -2,6 +2,7 @@ import React, { useState , useEffect} from 'react'
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/Product/ProductCard';
+import ProductDetail from './ProductDetails/ProductDetails';
 
 const Product = () => {
 
@@ -25,6 +26,8 @@ const Product = () => {
         {product?.map((i) => (
           <div key={i.prodID}   style={{ padding: '10px' }}>
             <ProductCard id={i.prodID} prodDisc = {i.disc} prodPoints={i.pointsRedeem} prodName={i.prodName} imgpath={i.imgpath} prodShortDesc={i.prodShortDesc} offerPrice={i.offerPrice} mrpPrice={i.mrpPrice} prodLongDesc={i.prodLongDesc} />
+            
+          
           </div>
            ))}
     </div>
