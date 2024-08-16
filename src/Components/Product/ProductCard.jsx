@@ -1,7 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, createContext, useContext } from 'react';
 import PropTypes from 'prop-types';
 import './Product.css';
 import { useNavigate } from 'react-router-dom';
+import { Navbar } from 'react-bootstrap';
+
 
 const ProductCard = ({
   id,
@@ -14,21 +16,22 @@ const ProductCard = ({
   offerPrice,
   mrpPrice
 }) => {
+  
   const navigate = useNavigate();
   const [cart, setCart] = useState({
     prodID: "",
     custID: "",
-    qty: 1
+    qty: ""
   });
-
+  const [inCart,setIncart]= useState(false)
   const [showLongDesc, setShowLongDesc] = useState(false);
-
+  const [noDiscount, setNoDiscount]=useState(false);
   
   const handleClick = (id) => {
     navigate(`/productd/${id}`);
-  }
-
+  };
   
+
   const handleAddToCart = (id) => {
     if (localStorage.getItem("islogin") === "true") {
       setCart({
@@ -36,13 +39,33 @@ const ProductCard = ({
         custID: localStorage.getItem("custId"),
         qty: 1
       });
-    } else {
-      navigate('/signin');
+      setIncart(true);
+      return;
     }
+
+    localStorage.setItem("path",window.location.pathname);
+    
+    navigate('/signin');
+  };
+
+  const handleBuyNow = (id) => {
+    if (localStorage.getItem("islogin") === "true") {
+      setCart({        
+        prodID: id,
+        custID: localStorage.getItem("custId"),
+        qty: 1
+      });
+      
+      setTimeout(() => {        
+        navigate(`/cart`); 
+      }, 2000);     
+    }
+    else
+    {localStorage.setItem("path",window.location.pathname);
+    navigate('/signin');}
   };
 
   useEffect(() => {
-    
     if (cart.prodID && cart.custID) {
       fetch("http://localhost:8080/api/Cart", {
         method: "POST",
@@ -52,28 +75,30 @@ const ProductCard = ({
         .then((response) => {
           if (!response.ok) {
             throw new Error("Cart data couldn't be sent.");
-          }
-          alert("Added to Cart successfully.");
+          }          
+          
+          
         })
         .catch((error) => {
-          alert("Failed to add item to the cart.");
+          alert("Item Already added in the cart");
         });
     }
   }, [cart]);
 
-  
   const toggleLongDesc = () => {
     setShowLongDesc(!showLongDesc);
   };
 
+  useEffect(()=>{
+     if(prodDisc==0)
+     {
+        setNoDiscount(true);
+     }
+  });
+
   return (
     <div className="product-card">
-      <img 
-        src={imgpath} 
-        alt={prodName} 
-        className="product-image" 
-        onClick={() => handleClick(id)}
-      />
+      <img src={imgpath} alt={prodName} className="product-image" onClick={()=>handleClick(id)}/>
       <h3 className="product-name">{prodName}</h3>
       {showLongDesc ? (
         <p className="product-long-desc">{prodLongDesc}</p>
@@ -81,29 +106,30 @@ const ProductCard = ({
         <p className="product-short-desc">{prodShortDesc}</p>
       )}
       <div className="product-prices">
-        <span className="product-mrp-price">MRP - ₹{mrpPrice}</span>
-        <span className="product-offer-price">₹{offerPrice}</span>
-        {prodPoints > 0 && (
+        <span className="product-offer-price">{noDiscount?"₹"+mrpPrice:"₹"+offerPrice}</span>
+        <span className="product-mrp-price">{noDiscount?"":"MRP - ₹"+ mrpPrice}</span>
+        <span className='product-discount'>  {prodDisc === 0 ? "No Discount" : prodDisc + "% off"} </span>
+        {prodPoints != 0 && (
           <>
-            <span className='product-points'>Points - {prodPoints}</span>
-            <span className='product-discount'>Discount - {prodDisc === 0 ? "100%" : `${prodDisc}%`}</span>
+            <span className='product-offer-price'><img src='/images/rupee1.jpg'style={{height:'20px',width:'20px',marginTop:'-3px'}}></img> {prodPoints}</span>
+            
           </>
         )}
       </div>
       {prodLongDesc && (
-        <p className="show-more" onClick={toggleLongDesc}>
-          {showLongDesc ? 'Show Less' : 'Show More'}
+        <p className="Details" onClick={toggleLongDesc}>
+          {showLongDesc ? 'Show Less' : 'More Details'}
         </p>
       )}
       <div className="product-buttons">
-        <button 
-          className="add-to-cart-button" 
-          onClick={() => handleAddToCart(id)}
-        >
-          Add to Cart
+        <button className="add-to-cart-button" onClick={() => handleAddToCart(id)}>
+        {inCart?"Added in Cart":"Add To Cart"}
         </button>
-        
+        <button className="buy-now-button" onClick={() => handleBuyNow(id)}>
+          Buy Now
+        </button>
       </div>
+     
     </div>
   );
 };
@@ -112,8 +138,6 @@ ProductCard.propTypes = {
   id: PropTypes.string.isRequired,
   imgpath: PropTypes.string.isRequired,
   prodName: PropTypes.string.isRequired,
-  prodDisc: PropTypes.number,
-  prodPoints: PropTypes.number,
   prodLongDesc: PropTypes.string.isRequired,
   prodShortDesc: PropTypes.string.isRequired,
   offerPrice: PropTypes.number.isRequired,

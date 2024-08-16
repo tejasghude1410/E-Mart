@@ -15,12 +15,13 @@ import SignIn from './Pages/SignIn/SignIn';
 import SignUp from './Pages/SignUp/SignUp';
 import ProductDetails from './Pages/ProductDetails/ProductDetails';
 import Invoice from './Pages/Invoice/Invoice';
+import './i18n';
 
 function App() {
   return (
     <div>
       <BrowserRouter>
-      <Navbar/>
+      <Navbar/>      
       <Routes>
         <Route path='/' element={<Home2/>}>
           <Route index path='/s/:id' element={<SubCategory/>}/>  
@@ -35,7 +36,7 @@ function App() {
         <Route path='/Contact' element={<Contact/>}/>
         <Route path='/invoice/:invoiceID' element={<Invoice/>}/>
       </Routes>
-      <div style={{ alignSelf: 'flex-end' }}><Footer/></div>
+      <div style={{ alignSelf: 'flex-end' }}><Footer/></div>      
       </BrowserRouter>
     </div>
   );

@@ -1,4 +1,16 @@
 /* CartPage.css */
+
+.main1{
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.main1 img{
+  margin: 30px;
+  height: 300px;
+  width: 300px;
+}
 .cart-page {
     padding: 20px;
     background-color: #f9f9f9;
@@ -34,27 +46,30 @@
     font-size: 16px;
   }
   
-  .cart-items li div button {
-    padding: 8px 15px;
+  .btnn { 
+    display: flex;
+    justify-content: center;
+  }
+  .btnn button {
+
+    width: 30px;
+    height: 30px;
     border: none;
     background-color: none;
     color: black;
     border-radius: 5px;
     cursor: pointer;
     font-size: 14px;
-    margin-right: 8px;
-    transition: background-color 0.3s, transform 0.3s;
+    
+    
   }
   
-  .cart-items li div button:hover {
+  .btnn button:hover {
     background-color: red;
     color: white;
   }
   
-  .cart-items li div button:active {
-    background-color: #003d80;
-    transform: scale(0.98);
-  }
+  
   
   .cart-items li div input[type="checkbox"] {
     margin-right: 10px;
@@ -120,4 +135,9 @@
     transform: scale(1.05);
   }
 
-  
+  .redeem-checkbox {
+    width: 20px; 
+    height: 20px; 
+    margin-left: 10px; 
+    vertical-align: middle; 
+  }

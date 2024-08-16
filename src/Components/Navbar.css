@@ -102,4 +102,14 @@
     margin-right: 35px;
     
 }
+.selec {
+    border: none; /* Removes the border */
+    background: none; /* Removes the background */
+    box-shadow: none; /* Removes any box shadow */
+    appearance: none; /* Removes the default dropdown arrow */
+    outline: none; /* Removes the outline when the element is focused */
+    padding: 0; /* Remove default padding */
+    margin: 0; /* Remove default margin */
+    font-weight: 500;
+  }
 

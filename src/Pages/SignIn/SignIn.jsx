@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import axios from "axios";
 import './SignIn.css';
 import { Link, useNavigate } from "react-router-dom";
 
@@ -16,10 +15,11 @@ const SignIn = () => {
   return (
     <div className="main">
       <div className="panel" id="login-form">
-        <div className="panel-heading"><div className='bold'>Please</div> Sign In</div>
+        <div className="panel-heading">
+          <div className='bold'>Please</div> Sign In
+        </div>
         <div className="panel-body">
-          <p>If you're already a member,
-             please login with your email and password.</p>
+          <p>If you're already a member, please login with your email and password.</p>
           <Formik
             initialValues={{ custEmail: "", custPassword: "" }}
             validationSchema={Yup.object().shape({
@@ -34,11 +34,25 @@ const SignIn = () => {
             })}
             onSubmit={async (values, { setSubmitting }) => {
               try {
-                const res = await axios.post("http://localhost:8080/api/Customer/check", values);
-                console.log(res);
+                const response = await fetch("http://localhost:8080/api/Customer/check", {
+                  method: "POST",
+                  headers: {
+                    "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(values)
+                });
+
+                if (!response.ok) {
+                  throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data);
+
                 localStorage.setItem("islogin", true);
-                localStorage.setItem("custId", res.data);
-                navigate('/');
+                localStorage.setItem("custId", data); 
+                
+                navigate(`${localStorage.getItem("path")}`)
               } catch (err) {
                 console.log(err);
                 console.log(values);
@@ -102,7 +116,8 @@ const SignIn = () => {
                   >
                     {isSubmitting ? (
                       <div className="globalbtnspin"></div>
-                    ) : ( "Sign in"
+                    ) : (
+                      "Sign in"
                     )}
                   </button>
                   <button

@@ -4,8 +4,12 @@ import { useNavigate } from 'react-router-dom';
 import ProductCard from '../Components/Product/ProductCard';
 import ProductDetail from './ProductDetails/ProductDetails';
 
-const Product = () => {
 
+
+
+const Product = () => {
+  
+    
     const [product,setProduct] = useState([]); 
     const { id } = useParams();
     let navigate = useNavigate();

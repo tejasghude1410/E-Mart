@@ -1,12 +1,78 @@
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-//import './ProductDetails.css';
+import React, { useState, useEffect, useContext, createContext } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import './ProductDetails.css';
 
+
+export const countContext=createContext();
 const ProductDetails = () => {
+  const[count,setCount]=useState(0);
+  
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [inCart,setIncart]= useState(false)
+  const navigate= useNavigate();
+  
+  const [cart, setCart] = useState({
+    prodID: "",
+    custID: "",
+    qty: ""
+  });
+  
+  console.log(cart)
+  const updateAddtocart=(id)=>{
+    if (localStorage.getItem("islogin") === "true") {
+      setCart({
+        prodID: id,
+        custID: localStorage.getItem("custId"),
+        qty: 1
+      });  
+      setCount(count+1);    
+      return;
+    }
+    else
+    
+   { localStorage.setItem("path",window.location.pathname);
+    navigate(`/signin`);}
+  };
+  
+
+  const callAddtocart=(id)=>{
+    if (localStorage.getItem("islogin") === "true") {
+      setCart({
+        prodID: id,
+        custID: localStorage.getItem("custId"),
+        qty: 1
+      });
+      setTimeout(() => {        
+        navigate(`/cart`); 
+      }, 2000);
+    }
+    else
+    {localStorage.setItem("path",window.location.pathname);
+    navigate(`/signin`);}
+  };
+  
+  useEffect(() => {
+    console.log(cart.prodID,cart.custID)
+    if (cart.prodID && cart.custID) {
+      fetch("http://localhost:8080/api/Cart", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(cart)
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Cart data couldn't be sent.");
+          }
+          setIncart(true);
+        })
+        .catch((error) => {
+          alert("Item Already added in the cart");
+        });
+    }
+  }, [cart]);
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -32,22 +98,36 @@ const ProductDetails = () => {
   if (!product) return <div>No product found</div>;
 
   return (
-    <div className="product-detail">
-      <div className="product-images">
-        <img src={product.imgpath} alt={product.name} className="main-image" />
-       
+    <div className="productd">
+      <div className="product-img">
+        <img src={product.imgpath} alt="AirPods" />
+        
       </div>
       <div className="product-info">
-        <h1 className="product-name">{product.name}</h1>
-        <div className="product-prices">
-          <span className="offer-price">₹{product.offerPrice}</span>
-          <span className="mrp-price">₹{product.mrpPrice}</span>
+        <h5>Special Price</h5>
+        <h2>₹{product.offerPrice}</h2>
+        <div style={{display:'flex',justifyContent:'flex-start' , gap:'20px'}}>
+          <h6 className='mrpPrice'>₹{product.mrpPrice}</h6>
+          <h6 style={{color:'green'}}>{product.disc}% off</h6>
         </div>
-        <p className="product-description">{product.description}</p>
-        <button className="add-to-cart-btn">Add to Cart</button>
-        <button className="buy-now-button">Buy Now</button>
+        
+        <h5><img src='/images/rupee1.jpg'style={{height:'20px',width:'20px',marginTop:'-3px'}}></img> {product.pointsRedeem}</h5>
+        <h2>{product.prodName}</h2>
+        
+        <h6>{product.prodShortDesc}</h6>
+        <p>{product.prodLongDesc}</p>
+        <div className="quantity-selector">
+          <button className='butn'>-</button>
+          <button className='butn'>+</button>
+          <span>Qty:</span>
+        </div>
+        <div className='btn' style={{display:'flex', justifyContent:'center',gap:'10px'}}>
+        <button onClick={()=>updateAddtocart(product.prodID)}>{inCart?"Added in Cart":"Add To Cart"}</button>
+        <button className="order-button" onClick={()=>callAddtocart(product.prodID)}>Order Now</button>
+        </div>
       </div>
     </div>
+
   );
 };
 

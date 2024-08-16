@@ -15,7 +15,7 @@ const SignUp = () => {
   return (
     <div className="signup-container">
       <Formik
-        initialValues={{ custName: "", custAddress: "", custPhone: "", custEmail: "", custPassword: "", confirm_password: "", cardHolder: "" }}
+        initialValues={{ custName: "", custAddress: "", custPhone: "", custEmail: "", custPassword: "", confirm_password: "", cardHolder: "" ,}}
         onSubmit={async (values, { setSubmitting }) => {
           try {
             const res = await axios.post("http://localhost:8080/api/Customer", values);
