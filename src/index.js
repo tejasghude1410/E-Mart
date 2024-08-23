@@ -10,14 +10,17 @@ import Product from './Pages/Product'
 import Login from './Pages/Signin';
 import Sidebar from './Components/Sidebar/toggleSidebar';
 import Footer from './Components/Footer';
-
+import {store} from './redux/store';
+import {Provider} from 'react-redux';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   
-  <React.StrictMode>     
-    <App/>     
+  <React.StrictMode>
+    <Provider store={store}>
+       <App/> 
+    </Provider>    
   </React.StrictMode>
   
 );

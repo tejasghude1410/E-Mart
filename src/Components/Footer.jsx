@@ -92,13 +92,7 @@ function Footer() {
               {t('Email')}: emart@gmail.com
             </p>
           </Col>
-          <Col xs={12} className="mb-4 d-flex justify-content-center">
-            <Form.Select aria-label="Select Language" onChange={(e) => changeLanguage(e.target.value)} style={{ maxWidth: '200px' }}>
-              <option value="en">English</option>
-              <option value="hn">Hindi</option>
-              {/* Add more languages as needed */}
-            </Form.Select>
-          </Col>
+          
         </Row>
         <hr />
         <div className="text-center py-3">

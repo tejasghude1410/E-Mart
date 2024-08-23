@@ -25,6 +25,7 @@ const Invoice = () => {
     fetch(`http://localhost:8080/api/invoice/${invoiceID}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log("Invoice data "+data)
         setInvoiceData(data);
         
         fetch(`http://localhost:8080/api/Customer/${data.custID}`)
@@ -40,7 +41,9 @@ const Invoice = () => {
         fetch(`http://localhost:8080/api/Invoicedetaails/InvoiceID/${invoiceID}`)
           .then((response) => response.json())
           .then((products) => {
-            setProductDetails(products);
+            console.log(products)
+            setProductDetails(products)
+            // setProductDetails(Array.isArray(products) ? products : [products]);
           })
           .catch((error) => {
             console.error('Error fetching product details:', error);
@@ -88,7 +91,7 @@ const Invoice = () => {
 
       const formData = new FormData();
       formData.append('file', pdfFile, 'invoice.pdf');
-      formData.append('recipient', customerData.cust_email); // Assuming customerData contains the email
+      formData.append('recipient', customerData.cust_email); 
       formData.append('msgBody', 'Please find the attached invoice.');
       formData.append('name', 'E-Mart Solutions');
       
@@ -116,6 +119,7 @@ const Invoice = () => {
       const pointsToGive = Math.round(invoiceData.totalAmt * 0.05);
       const pointsToGiven= pointsToGive+customerData.points
       console.log(pointsToGiven);
+      console.log(localStorage.getItem("custId"))
       fetch(`http://localhost:8080/api/Customer/points/` + localStorage.getItem("custId"), {
         method: 'PUT',
         headers: {
@@ -141,7 +145,7 @@ const Invoice = () => {
           <header>
             <img src={logo} alt="Logo" className="logo" />
           </header>
-          <h1>E-Mart Solutions</h1>
+          <h1>E-Mart</h1>
           <hr />
           <br />
           <h1>INVOICE</h1>
@@ -177,7 +181,7 @@ const Invoice = () => {
                     </tr>
                     <tr>
                       <td className="table-header">MRP:</td>
-                      <td>₹{product.mrp.toFixed(2)}</td>
+                      <td>₹ {product.mrp}</td>
                     </tr>
                     <tr>
                       <td className="table-header">Points Redeem:</td>
@@ -185,7 +189,7 @@ const Invoice = () => {
                     </tr>
                     <tr>
                       <td className="table-header">Card Holder Price:</td>
-                      <td>₹{product.cardHolderPrice.toFixed(2)}</td>
+                      <td>₹ {product.cardHolderPrice}</td>
                     </tr>
                   </tbody>
                 </table>
@@ -195,16 +199,16 @@ const Invoice = () => {
         </div>
         <div className="invoice-totals">
           <div className="invoice-field">
-            <span>Total Amount:</span> ₹{invoiceData.totalAmt.toFixed(2)}
+            <span>Total Amount:</span> ₹ {invoiceData.totalAmt.toFixed(2)}
           </div>
           <div className="invoice-field">
-            <span>Delivery Charge:</span> ₹{invoiceData.deliveryCharge.toFixed(2)}
+            <span>Delivery Charge:</span> ₹ {invoiceData.deliveryCharge.toFixed(2)}
           </div>
           <div className="invoice-field">
-            <span>Tax:</span> ₹{invoiceData.tax.toFixed(2)}
+            <span>Tax:</span> ₹ {invoiceData.tax.toFixed(2)}
           </div>
           <div className="invoice-field">
-            <span>Total Bill:</span> ₹{invoiceData.totalBill.toFixed(2)}
+            <span>Total Bill:</span> ₹ {invoiceData.totalBill.toFixed(2)}
           </div>
         </div>
       </div>

@@ -162,6 +162,7 @@ const Cart = () => {
   };
 
   const placeOrder = () => {
+    
     let TA;
     if (isRedeemingPoints) {
       TA = totalAmount - points
@@ -170,12 +171,12 @@ const Cart = () => {
     }
 
     const invoiceData = {
-      totalAmt: TA / 1.18,
+      totalAmt: TA,
       tax: (TA / 1.18) * 0.18,
       deliveryCharge: 100,
       custID: parseInt(localStorage.getItem("custId")),
       invoiceDate: new Date().toISOString().split('T')[0], 
-      totalBill: TA + 100, 
+      totalBill: TA +(TA/ 1.18)*0.18 + 100, 
     };
 
 
@@ -289,7 +290,7 @@ const Cart = () => {
   }
 
   const handleUpdatePoints = async (points) => {
-
+    console.log(localStorage.getItem("custId"));
     try {
       const response = await fetch(`http://localhost:8080/api/Customer/points/` + localStorage.getItem("custId"), {
         method: 'PUT',
@@ -350,7 +351,7 @@ const Cart = () => {
               disabled={productDetails[item.prodID]?.pointsRedeem === 0}
               onChange={(e) => handlecheck(e, item.prodID, productDetails[item.prodID]?.pointsRedeem, productDetails[item.prodID]?.disc)} />
             <label className="form-check-label" htmlFor="flexCheckDefault">
-              Redeem Ponints
+              Redeem Points
             </label>
           </div>
         </div>
